@@ -1,6 +1,6 @@
 # Mastering Spec-Driven Development (SDD)
 
-> [English version](README.md) · [Оглавление курса](INDEX.ru.md)
+> [English version](INDEX.md) · [Оглавление курса](INDEX.ru.md)
 
 > *«Если ИИ не смог построить это правильно, виновата спецификация, а не код.»*
 
@@ -72,7 +72,7 @@
 
 ## Инструменты
 
-Методология, преподаваемая в этом курсе, реализована в [**Specter**](../specter/) — инструментальной цепочке компилятора спецификаций, которая проверяет, связывает и типизирует файлы `.spec.yaml`. См. [документацию Specter](../specter/docs/GETTING_STARTED.ru.md), чтобы начать пользоваться инструментами.
+Методология, преподаваемая в этом курсе, реализована в [**Specter**](https://github.com/InExSu/specter/tree/main/specter) — инструментальной цепочке компилятора спецификаций, которая проверяет, связывает и типизирует файлы `.spec.yaml`. См. [документацию Specter](https://github.com/InExSu/specter/blob/main/specter/docs/GETTING_STARTED.ru.md), чтобы начать пользоваться инструментами.
 
 ## Лицензия
 

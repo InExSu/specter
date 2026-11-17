@@ -1,0 +1,75 @@
+name: Book site
+
+# Publishes sddbook/ as a static site. MkDocs reads the book tree in place, so
+# there is no generated source in git: the only tracked inputs are mkdocs.yml,
+# the theme pin in requirements-docs.txt, and the one post-build hook.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'sddbook/**'
+      - 'mkdocs.yml'
+      - 'book-site-hooks.py'
+      - 'requirements-docs.txt'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+# Only the deploy job needs to write; the build job inherits read access.
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: read
+
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5 # v4
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements-docs.txt
+
+      - name: Install the site builder
+        run: pip install -r requirements-docs.txt
+
+      # --strict fails the job on any build warning, so a page added to the
+      # book without a nav entry, or a link to a file that does not exist,
+      # breaks the build instead of shipping a silently incomplete site.
+      - name: Build the site
+        env:
+          # MkDocs 1.6 nags about its successor on every run; the pin is in
+          # requirements-docs.txt, not something to fix here.
+          NO_MKDOCS_2_WARNING: '1'
+        run: mkdocs build --strict
+
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
+        with:
+          path: site
+
+  deploy:
+    name: Deploy
+    needs: build
+    runs-on: ubuntu-latest
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

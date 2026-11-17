@@ -18,3 +18,10 @@ VERSIONING_PLAN.md
 project_review/
 # docs/RELEASE_PLAN.md was archived to docs/archive/ in v0.7.1; archived copy is tracked.
 specter/docs/IMPROVEMENT_ROADMAP.md
+
+# Book site build output and its local virtualenv
+site/
+.venv-docs/
+
+# Python bytecode from the book site hook
+__pycache__/

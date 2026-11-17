@@ -1,0 +1,108 @@
+# The book site. Published to GitHub Pages by .github/workflows/pages.yml.
+#
+# The Russian edition leads the navigation, because that is the edition the
+# sidebar is written for; the English originals sit in their own section so a
+# reader can always reach the source text of any page. Both editions are built
+# from the same `sddbook/` tree, so nothing is copied or generated at build time.
+site_name: Освоение разработки через спецификации
+site_description: Книга о Spec-Driven Development — 17 глав, 5 модулей, от начального уровня до продвинутого
+docs_dir: sddbook
+site_dir: site
+
+# MkDocs maps a root `README.md` to `index.html` exactly like `index.md`, and
+# the two cannot coexist. The Russian landing page owns the site root, so the
+# English course overview is built from the repository only; its content is
+# still reachable through the English table of contents.
+exclude_docs: README.md
+
+# The site root is a redirect to the Russian table of contents; see the hook.
+hooks:
+  - book-site-hooks.py
+
+theme:
+  name: material
+  language: ru
+  features:
+    - navigation.top
+    - navigation.tracking
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Переключить на тёмную тему
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Переключить на светлую тему
+
+extra:
+  generator: false
+
+markdown_extensions:
+  # Python-Markdown's default slugify drops every non-ASCII character, which
+  # turns the Cyrillic module headings into ids like `01` and breaks the
+  # `#модуль-01--…` links the chapters use. pymdownx's slugify with `case:
+  # lower` is the GitHub algorithm, so the same anchors work in both places.
+  - toc:
+      permalink: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify {kwds: {case: lower}}
+  - pymdownx.highlight:
+      anchor_linenums: true
+  # Chapters nest a fenced Markdown template inside a four-backtick block;
+  # superfences keeps the inner block intact.
+  - pymdownx.superfences
+
+nav:
+  - О курсе: README.ru.md
+  - Оглавление: INDEX.ru.md
+  - "Модуль 01 — Основы: мышление «контрактами»":
+      - "Глава 1: От прозы к протоколу": MODULE_01/CHAPTER_01.ru.md
+      - "Глава 2: Единый источник истины (SSOT)": MODULE_01/CHAPTER_02.ru.md
+      - "Глава 3: Анатомия микро-спецификации": MODULE_01/CHAPTER_03.ru.md
+      - "Глава 4: Практика — от вайба к спецификации": MODULE_01/CHAPTER_04.ru.md
+  - "Модуль 02 — Определение архитектуры («как»)":
+      - "Глава 1: Проектирование от схем": MODULE_02/CHAPTER_01.ru.md
+      - "Глава 2: Контракт компонента": MODULE_02/CHAPTER_02.ru.md
+      - "Глава 3: Чертежи API": MODULE_02/CHAPTER_03.ru.md
+      - "Глава 4: Спецификации управления состоянием": MODULE_02/CHAPTER_04.ru.md
+  - "Модуль 03 — Валидация и петля обратной связи":
+      - "Глава 1: Сопоставление спецификации и тестов (TDD для ИИ)": MODULE_03/CHAPTER_01.ru.md
+      - "Глава 2: Автоматический линтинг замысла": MODULE_03/CHAPTER_02.ru.md
+      - "Глава 3: Стратегия контекстного окна": MODULE_03/CHAPTER_03.ru.md
+  - "Модуль 04 — Продвинутая оркестрация и агенты":
+      - "Глава 1: Мультиагентный рабочий процесс": MODULE_04/CHAPTER_01.ru.md
+      - "Глава 2: Эволюционирующие спецификации": MODULE_04/CHAPTER_02.ru.md
+      - "Глава 3: Спецификации с учётом среды": MODULE_04/CHAPTER_03.ru.md
+  - "Модуль 05 — Сопровождение и масштабирование":
+      - "Глава 1: Спецификация рефакторинга": MODULE_05/CHAPTER_01.ru.md
+      - "Глава 2: Документация как код": MODULE_05/CHAPTER_02.ru.md
+      - "Глава 3: Человек в контуре": MODULE_05/CHAPTER_03.ru.md
+  - English edition:
+      - Contents: INDEX.md
+      - "Module 01 — Foundations":
+          - "Chapter 1: From Prose to Protocol": MODULE_01/CHAPTER_01.md
+          - "Chapter 2: The Single Source of Truth (SSOT)": MODULE_01/CHAPTER_02.md
+          - "Chapter 3: The Anatomy of a Micro-Spec": MODULE_01/CHAPTER_03.md
+          - "Chapter 4: Practice — From Vibe to Spec": MODULE_01/CHAPTER_04.md
+      - "Module 02 — Defining the Architecture":
+          - "Chapter 1: Schema-First Design": MODULE_02/CHAPTER_01.md
+          - "Chapter 2: The Component Contract": MODULE_02/CHAPTER_02.md
+          - "Chapter 3: API Blueprinting": MODULE_02/CHAPTER_03.md
+          - "Chapter 4: State Management Specs": MODULE_02/CHAPTER_04.md
+      - "Module 03 — Validation & The Feedback Loop":
+          - "Chapter 1: Spec-to-Test Mapping (TDD for AI)": MODULE_03/CHAPTER_01.md
+          - "Chapter 2: Automated Linting of Intent": MODULE_03/CHAPTER_02.md
+          - "Chapter 3: The Context Window Strategy": MODULE_03/CHAPTER_03.md
+      - "Module 04 — Advanced Orchestration & Agents":
+          - "Chapter 1: The Multi-Agent Workflow": MODULE_04/CHAPTER_01.md
+          - "Chapter 2: Evolutionary Specs": MODULE_04/CHAPTER_02.md
+          - "Chapter 3: Environment-Aware Specs": MODULE_04/CHAPTER_03.md
+      - "Module 05 — Maintenance & Scaling":
+          - "Chapter 1: The Refactor Spec": MODULE_05/CHAPTER_01.md
+          - "Chapter 2: Documentation as Code": MODULE_05/CHAPTER_02.md
+          - "Chapter 3: The Human-in-the-Loop": MODULE_05/CHAPTER_03.md

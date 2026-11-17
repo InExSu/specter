@@ -70,7 +70,7 @@ Every chapter is written as a **full lecture** from a patient, knowledgeable pro
 
 ## Tooling
 
-The methodology taught in this course is implemented by [**Specter**](../specter/) -- a spec compiler toolchain that validates, links, and type-checks `.spec.yaml` files. See the [Specter docs](../specter/docs/GETTING_STARTED.md) to start using the tooling.
+The methodology taught in this course is implemented by [**Specter**](https://github.com/InExSu/specter/tree/main/specter) -- a spec compiler toolchain that validates, links, and type-checks `.spec.yaml` files. See the [Specter docs](https://github.com/InExSu/specter/blob/main/specter/docs/GETTING_STARTED.md) to start using the tooling.
 
 ## License
 
