@@ -43,7 +43,7 @@ Specter is content-agnostic. A `.spec.yaml` can describe runtime behavior, data 
 
 The book defines the methodology. Specter provides the infrastructure to enforce the checks you adopt.
 
-**[Read the book](sddbook/INDEX.md)**
+**[Read the book](https://inexsu.github.io/specter/INDEX/)** (site) · **[Contents](sddbook/INDEX.md)** (markdown)
 
 ---
 
